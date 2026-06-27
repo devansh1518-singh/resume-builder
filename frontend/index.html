@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Builder</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section id="authView" class="auth-view">
+      <div class="auth-card">
+        <div>
+          <p class="eyebrow">Resume Builder</p>
+          <h1>Create polished resumes faster</h1>
+        </div>
+
+        <div class="auth-tabs" role="tablist" aria-label="Authentication">
+          <button class="auth-tab active" type="button" data-auth-mode="login">Login</button>
+          <button class="auth-tab" type="button" data-auth-mode="signup">Sign up</button>
+        </div>
+
+        <form id="authForm" class="auth-form" novalidate>
+          <label id="nameGroup">
+            <span>Name</span>
+            <input type="text" id="authName" autocomplete="name" placeholder="Your name">
+          </label>
+
+          <label>
+            <span>Email</span>
+            <input type="email" id="authEmail" autocomplete="email" placeholder="you@example.com" required>
+          </label>
+
+          <label>
+            <span>Password</span>
+            <input type="password" id="authPassword" autocomplete="current-password" placeholder="At least 6 characters" required minlength="6">
+          </label>
+
+          <p id="authMessage" class="message" aria-live="polite"></p>
+          <button class="primary-button" type="submit">Login</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="appView" class="app-view hidden">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Resume Builder</p>
+          <h1>Build, save, and export your resume</h1>
+        </div>
+        <div class="topbar-actions">
+          <span id="userBadge" class="user-badge"></span>
+          <button id="logoutButton" class="ghost-button" type="button">Logout</button>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <aside class="form-column">
+          <form id="resumeForm" class="resume-form" novalidate>
+            <div class="form-header">
+              <div>
+                <p class="eyebrow">Details</p>
+                <h2>Resume information</h2>
+              </div>
+              <button id="clearButton" class="ghost-button" type="button">New</button>
+            </div>
+
+            <div class="template-picker" aria-label="Resume template">
+              <label>
+                <input type="radio" name="template" value="classic" checked>
+                <span>Classic</span>
+              </label>
+              <label>
+                <input type="radio" name="template" value="modern">
+                <span>Modern</span>
+              </label>
+            </div>
+
+            <div class="field-grid">
+              <label>
+                <span>Full Name</span>
+                <input type="text" id="fullName" name="fullName" placeholder="Alex Morgan" required>
+              </label>
+
+              <label>
+                <span>Email</span>
+                <input type="email" id="email" name="email" placeholder="alex@example.com" required>
+              </label>
+
+              <label>
+                <span>Phone Number</span>
+                <input type="tel" id="phone" name="phone" placeholder="+1 555 123 4567" required>
+              </label>
+
+              <label>
+                <span>Address</span>
+                <input type="text" id="address" name="address" placeholder="New York, NY" required>
+              </label>
+            </div>
+
+            <label>
+              <span>Objective</span>
+              <textarea id="objective" name="objective" rows="4" placeholder="Motivated developer seeking to build reliable, user-friendly web applications." required></textarea>
+            </label>
+
+            <label>
+              <span>Skills</span>
+              <textarea id="skills" name="skills" rows="4" placeholder="JavaScript, Node.js, Express, CSS" required></textarea>
+            </label>
+
+            <label>
+              <span>Education</span>
+              <textarea id="education" name="education" rows="4" placeholder="B.S. Computer Science - State University, 2024" required></textarea>
+            </label>
+
+            <label>
+              <span>Projects</span>
+              <textarea id="projects" name="projects" rows="5" placeholder="Portfolio Website - Built a responsive portfolio using HTML, CSS, and JavaScript" required></textarea>
+            </label>
+
+            <label>
+              <span>Experience</span>
+              <textarea id="experience" name="experience" rows="5" placeholder="Frontend Intern - Created reusable UI components and improved page load time" required></textarea>
+            </label>
+
+            <label>
+              <span>Hobbies & Interests</span>
+              <textarea id="hobbies" name="hobbies" rows="4" placeholder="Open-source projects, technical blogging, chess, volunteering" required></textarea>
+            </label>
+
+            <p id="formMessage" class="message" aria-live="polite"></p>
+
+            <div class="button-row">
+              <button class="primary-button" type="submit">Save Resume</button>
+              <button id="downloadButton" class="secondary-button" type="button">Download PDF</button>
+            </div>
+          </form>
+
+          <section class="saved-panel">
+            <div class="saved-header">
+              <div>
+                <p class="eyebrow">Saved</p>
+                <h2>Your resumes</h2>
+              </div>
+              <button id="refreshButton" class="ghost-button" type="button">Refresh</button>
+            </div>
+            <div id="savedResumes" class="saved-list" aria-live="polite"></div>
+          </section>
+        </aside>
+
+        <section class="preview-column">
+          <div class="preview-toolbar">
+            <div>
+              <p class="eyebrow">Preview</p>
+              <h2>Live resume</h2>
+            </div>
+          </div>
+
+          <article id="resumePreview" class="resume-paper template-classic">
+            <div class="resume-header">
+              <h2 data-preview="fullName">Your Name</h2>
+              <p>
+                <span data-preview="email">you@example.com</span>
+                <span data-preview="phone">+1 555 123 4567</span>
+                <span data-preview="address">Your City</span>
+              </p>
+            </div>
+
+            <div class="resume-layout">
+              <aside class="resume-side">
+                <section>
+                  <h3>Skills</h3>
+                  <div id="previewSkills" class="skill-list"></div>
+                </section>
+                <section>
+                  <h3>Hobbies & Interests</h3>
+                  <div id="previewHobbies" class="skill-list"></div>
+                </section>
+              </aside>
+
+              <div class="resume-main">
+                <section>
+                  <h3>Objective</h3>
+                  <div id="previewObjective" class="preview-lines"></div>
+                </section>
+
+                <section>
+                  <h3>Education</h3>
+                  <div id="previewEducation" class="preview-lines"></div>
+                </section>
+
+                <section>
+                  <h3>Projects</h3>
+                  <div id="previewProjects" class="preview-lines"></div>
+                </section>
+
+                <section>
+                  <h3>Experience</h3>
+                  <div id="previewExperience" class="preview-lines"></div>
+                </section>
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "resume-builder-app",
+  "version": "1.0.0",
+  "description": "A beginner-friendly full-stack resume builder with live preview, templates, authentication, JSON storage, and PDF export.",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js"
+  },
+  "keywords": [
+    "resume",
+    "express",
+    "javascript",
+    "pdf"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "pdfkit": "^0.15.0"
+  }
+}
